@@ -28,10 +28,10 @@ project "V1"
         systemversion "latest"
 
     filter "configurations:Debug"
-        defines {"DEBUG"}
+        defines {"DEBUG","_CRT_SECURE_NO_WARNINGS"}
         symbols "on"
 
     filter "configurations:Release"
-        defines {"NDEBUG"}
+        defines {"NDEBUG","_CRT_SECURE_NO_WARNINGS"}
         optimize "on"
             
