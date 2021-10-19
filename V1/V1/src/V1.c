@@ -1,8 +1,5 @@
-#define _CRT_SECURE_NO_WARNINGS
-
 #include "stdio.h"
 #include "stdlib.h"
-#include "string.h"
 
 #include "Assert.h"
 
@@ -10,28 +7,26 @@ typedef struct _student
 {
 	char name[20];
 	char lastName[20];
-	double score;
+	int score;
 
 }student;
 
-int NumberOfRows(char* filePath);
-int PrintData(student* students, int numberOfStudents);
-student* CreateStudents(char* filePath,int numberOfStudents);
+int NumberOfRows(const char*);
+int PrintStudentsData(student*, int);
+student* CreateStudents(const char*, int);
 
 int main()
 {
-	int row = 0;
-	student* students = NULL;
+	int numberOfStudents = NumberOfRows("res/StudentData.txt");
+	student* students = CreateStudents("res/StudentData.txt", numberOfStudents);
 
-	row = NumberOfRows("res/StudentData.txt");
-	students = CreateStudents("res/StudentData.txt", row);
+	PrintStudentsData(students,numberOfStudents);
 
-	PrintData(students,row);
-
+	free(students);
 	return 0;
 }
 
-int NumberOfRows(char* filePath)
+int NumberOfRows(const char* filePath)
 {
 	int numberOfRows = 0;
 	FILE* file = NULL;
@@ -49,7 +44,7 @@ int NumberOfRows(char* filePath)
 	return numberOfRows;
 }
 
-student* CreateStudents(char* filePath,int numberOfStudents)
+student* CreateStudents(const char* filePath, int numberOfStudents)
 {
 	student* students = NULL;
 	FILE* file = NULL;
@@ -60,7 +55,7 @@ student* CreateStudents(char* filePath,int numberOfStudents)
 
 	while (!feof(file))
 	{
-		fscanf(file, " %s %s %lf", students[i].name, students[i].lastName, &(students[i].score));
+		fscanf(file, " %s %s %d", students[i].name, students[i].lastName, &(students[i].score));
 		i++;
 	}
 	fclose(file);
@@ -68,10 +63,10 @@ student* CreateStudents(char* filePath,int numberOfStudents)
 	return students;
 }
 
-int PrintData(student* students, int numberOfStudents)
+int PrintStudentsData(student* students, int numberOfStudents)
 {
 	int i = 0;
-	double highestScore = 0;
+	float highestScore = 0.0f;
 
 	for (i = 0; i < numberOfStudents; i++)
 	{
@@ -88,8 +83,8 @@ int PrintData(student* students, int numberOfStudents)
 		{
 			printf("Name: %s \n", students[i].name);
 			printf("Last Name: %s \n", students[i].lastName);
-			printf("Score: %.2lf \n", students[i].score);
-			printf("Relative Score: %.2lf \n", (double)(students[i].score / highestScore) * 100);
+			printf("Score: %d \n", students[i].score);
+			printf("Relative Score: %.2f \n", (float)(students[i].score / highestScore) * 100.0f);
 			printf("#########################\n");
 		}
 	}
@@ -100,7 +95,7 @@ int PrintData(student* students, int numberOfStudents)
 		{
 			printf("Name: %s \n", students[i].name);
 			printf("Last Name: %s \n", students[i].lastName);
-			printf("Score: %.2lf \n", students[i].score);
+			printf("Score: %d \n", students[i].score);
 			printf("Relative Score: 0 \n");
 			printf("#########################\n");
 		}
