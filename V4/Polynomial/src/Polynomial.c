@@ -85,8 +85,7 @@ int MultiplyPoly(Position result, Position head1, Position head2)
 	{
 		for (j = head2->next; j != NULL; j = j->next)
 		{
-			newElement = CreateListElement(i->coefficent * j->coefficent, i->exponent + j->exponent);
-			InsertSorted(result, newElement);
+			CreateAndInsert(result, i->coefficent * j->coefficent, i->exponent + j->exponent);
 		}
 	}
 }
@@ -148,8 +147,7 @@ static int ReadData(Position head, const char* buffer)
 
 		if (coefficient != 0)
 		{
-			Position newElement = CreateListElement(coefficient, exponent);
-			InsertSorted(head, newElement);
+			CreateAndInsert(head, coefficient, exponent);
 		}
 
 		bufferPosition += offset;
