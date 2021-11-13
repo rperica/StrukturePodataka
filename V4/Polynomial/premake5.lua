@@ -25,10 +25,10 @@ project "Polynomial"
     cdialect "C11"
     systemversion "latest"
 
-filter "configurations:Debug"
+    filter "configurations:Debug"
     defines {"DEBUG"}
     symbols "on"
 
-filter "configurations:Release"
+    filter "configurations:Release"
     defines {"NDEBUG"}
     optimize "on"
