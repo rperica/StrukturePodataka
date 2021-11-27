@@ -1,0 +1,5 @@
+2021 09 06
+kruh 1 5.40
+krafna 3 1.99
+mlijeko 2 4.00
+END

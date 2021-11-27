@@ -1,0 +1,6 @@
+2021 08 29
+sladoled 2 7.00
+sok 1 8.99
+maramica 3 0.99
+voda 2 6.99
+END

@@ -1,0 +1,3 @@
+res/bills/bill1.txt
+res/bills/bill2.txt
+res/bills/bill3.txt
