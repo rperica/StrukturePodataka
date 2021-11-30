@@ -7,7 +7,7 @@
 typedef struct _bill
 {
 	Date date;
-	ArticleElement head; //
+	ArticleElement head; 
 
 }Bill;
 typedef struct _bill* BillPointer;

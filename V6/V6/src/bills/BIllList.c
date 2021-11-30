@@ -9,7 +9,16 @@ static int ClearAfterBill(BillPosition position);
 static int InsertBillSorted(BillPosition head, BillPosition newElement);
 static int InsertAfterBill(BillPosition position, BillPosition newElement);
 
-static BillPosition ReadBillFromFile(const char* filepath); //
+static BillPosition ReadBillFromFile(const char* filepath); 
+
+
+int InitializeBill(BillPosition billHead)
+{
+	BillConstructorClear(&billHead->bill);
+	billHead->nextBill = NULL;
+
+	return 0; // !
+}
 
 int CreateAndInsertBill(BillPosition head, const char* filepath)
 {
@@ -43,6 +52,25 @@ int PrintBills(BillPosition head)
 	return 0; //!
 }
 
+int CreateFromFile(BillPosition head, const char* filepath)
+{
+	FILE* file = NULL;
+	char buffer[1024] = { 0 };
+	char path[1024] = { 0 };
+
+	ASSERT(file = fopen(filepath, "r"));
+
+	while (!feof(file))
+	{
+		fscanf(file," %s", buffer);
+		CreateAndInsertBill(head, buffer);
+	}
+
+	fclose(file);
+
+	return 0; // !
+}
+
 static BillPosition NewBillElement(int year, int month, int day)
 {
 	BillPosition newElement = NULL;
@@ -60,7 +88,7 @@ static int ClearAfterBill(BillPosition position)
 	BillPosition garbage = position->nextBill;
 	position->nextBill = garbage->nextBill;
 
-	BillDeconstructor(&garbage->bill); //
+	BillDeconstructor(&garbage->bill); 
 	free(garbage);
 
 	return 0; // !
@@ -104,7 +132,7 @@ static BillPosition ReadBillFromFile(const char* filepath)
 
 	fgets(buffer, 1024, file);
 
-	ASSERT(sscanf(&buffer, " %d %d %d", &year, &month, &day) == 3);
+	ASSERT(sscanf(&buffer, " %d-%d-%d", &year, &month, &day) == 3);
 	newBill = NewBillElement(year, month, day);
 
 	while (!feof(file))

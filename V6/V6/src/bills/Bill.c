@@ -13,9 +13,7 @@ int BillConstructor(BillPointer _this, int year, int month, int day)
 int BillConstructorClear(BillPointer _this)
 {
 	DateConstructorClear(&_this->date);
-
-	ArticleConstructorClear(&_this->head.article);
-	_this->head.nextArticle = (void*)0;
+	InitializeArticle(&_this->head);
 
 	return 0; // !
 }

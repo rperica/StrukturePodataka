@@ -1,9 +1,7 @@
-#include "stdio.h"
-
-int Program(const char* filepath);
+int Program();
 
 int main()
 {
-	Program("res/billsheet.txt");
+	Program();
 	return 0;
 }

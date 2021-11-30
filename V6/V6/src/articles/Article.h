@@ -1,5 +1,7 @@
 #pragma once
 
+#define MAX_ARTICLE_NAME 128
+
 //class Article
 typedef struct _article
 {

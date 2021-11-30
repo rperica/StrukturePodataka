@@ -9,6 +9,14 @@ static int ClearAfterArticle(ArticlePosition position);
 static int InsertArticleSorted(ArticlePosition head, ArticlePosition newElement);
 static int InsertAfterArticle(ArticlePosition position, ArticlePosition newElement);
 
+int InitializeArticle(ArticlePosition articleHead)
+{
+	ArticleConstructorClear(&articleHead->article);
+	articleHead->nextArticle = NULL;
+
+	return 0;
+}
+
 int CreateAndInsertArticle(ArticlePosition head, const char* name, int quantity, float price)
 {
 	ArticlePosition article = NewArticleElement(name, quantity, price);
