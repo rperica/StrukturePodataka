@@ -6,16 +6,25 @@
 
 static BillPosition NewBillElement(int year, int month, int day);
 static int ClearAfterBill(BillPosition position);
-static int InsertBillSorted(BillPosition head, BillPosition newElement);
 static int InsertAfterBill(BillPosition position, BillPosition newElement);
 
 static BillPosition ReadBillFromFile(const char* filepath); 
-
 
 int InitializeBill(BillPosition billHead)
 {
 	BillConstructorClear(&billHead->bill);
 	billHead->nextBill = NULL;
+
+	return 0; // !
+}
+
+int InsertBillSorted(BillPosition head, BillPosition newElement)
+{
+	BillPosition temp = head;
+
+	for (; temp->nextBill != NULL && DateCompare(&temp->nextBill->bill.date, &newElement->bill.date) < 0; temp = temp->nextBill) {} //
+
+	InsertAfterBill(temp, newElement);
 
 	return 0; // !
 }
@@ -58,7 +67,12 @@ int CreateFromFile(BillPosition head, const char* filepath)
 	char buffer[1024] = { 0 };
 	char path[1024] = { 0 };
 
-	ASSERT(file = fopen(filepath, "r"));
+	file = fopen(filepath, "r");
+	if (!file)
+	{
+		printf("Wrong file name, please use res/ :\n");
+		return FILE_WITH_BILLS_NOT_OPENED;
+	}
 
 	while (!feof(file))
 	{
@@ -69,6 +83,26 @@ int CreateFromFile(BillPosition head, const char* filepath)
 	fclose(file);
 
 	return 0; // !
+}
+
+int WriteBillToFile(BillPointer _this, const char* filePath)
+{
+	FILE* file = NULL;
+
+	ASSERT(file = fopen(filePath, "w"));
+
+	fprintf(file, "%s\n", _this->date.DateString);
+
+	// Razbit u funkciju,ali onda treba prenijeti file pointer
+	ArticlePosition first = _this->head.nextArticle;
+	for (; first != NULL; first = first->nextArticle)
+	{
+		fprintf(file, "%s %d %.2f\n", first->article.name, first->article.quantity, first->article.price);
+	}
+	fprintf(file, "END");
+	fclose(file);
+
+	return 0;//
 }
 
 static BillPosition NewBillElement(int year, int month, int day)
@@ -90,17 +124,6 @@ static int ClearAfterBill(BillPosition position)
 
 	BillDeconstructor(&garbage->bill); 
 	free(garbage);
-
-	return 0; // !
-}
-
-static int InsertBillSorted(BillPosition head, BillPosition newElement)
-{
-	BillPosition temp = head;
-
-	for(;temp->nextBill != NULL && DateCompare(&temp->nextBill->bill.date, &newElement->bill.date) < 0; temp=temp->nextBill) {} //
-
-	InsertAfterBill(temp, newElement);
 
 	return 0; // !
 }

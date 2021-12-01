@@ -3,6 +3,8 @@
 #include "date/Date.h"
 #include "articles/ArticleList.h"
 
+#define MAX_BILL_NAME 128
+
 // class Bill
 typedef struct _bill
 {

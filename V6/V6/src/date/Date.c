@@ -26,7 +26,7 @@ int DateConstructorFromString(DatePointer _this, const char* dateString)
 		return 1; //
 	}
 
-	DateToString(_this);
+	strcpy(_this->DateString, dateString);
 
 	return 0; //
 }
@@ -67,9 +67,17 @@ int DateCompare(DatePointer _this, DatePointer date)
 
 int PrintDate(DatePointer _this)
 {
-	//printf("%04d-%02d-%02d\n", _this->YY, _this->MM, _this->DD);
 	printf("%s\n", _this->DateString);
 	return 0; // !
+}
+
+int EnterDate(DatePointer _this)
+{
+	char dateString[MAX_DATE_AS_STRING] = { 0 };
+	scanf(" %s", dateString);
+	DateConstructorFromString(_this, dateString);
+
+	return 0;
 }
 
 static int DateToString(DatePointer _this)

@@ -28,3 +28,4 @@ int DateDeconstructor(DatePointer _this);
 // Methods
 int DateCompare(DatePointer _this, DatePointer date);
 int PrintDate(DatePointer _this);
+int EnterDate(DatePointer _this);

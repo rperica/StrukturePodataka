@@ -2,6 +2,31 @@
 
 #define NULL ((void*)0)
 
+
+int FilterConstructorClear(FilterPointer _this)
+{
+	DateConstructorClear(&_this->dateFrom);
+	DateConstructorClear(&_this->dateTo);
+
+	return 0;
+}
+
+int FilterDeconstructor(FilterPointer _this)
+{
+	printf("Object deleted\n");
+	return 0;
+}
+
+int CreateFilter(FilterPointer _this)
+{
+	printf("Enter date from: ");
+	EnterDate(&_this->dateFrom);
+	printf("Enter date to: ");
+	EnterDate(&_this->dateTo);
+	return 0;
+}
+
+
 int CaluclateTotalEarningsFromDateRange(BillPosition head, Date fromDate, Date toDate, float* sumPrice)
 {
 	BillPosition temp = head->nextBill;

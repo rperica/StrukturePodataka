@@ -7,7 +7,9 @@
 #define MAX_FILE_NAME 128
 
 static int PrintMenu();
+static int PrintFilterMenu();
 
+// Razbit u funkcije
 int DataBaseInterface(DataBasePointer _this)
 {
 	char fileName[MAX_FILE_NAME] = { 0 };
@@ -23,6 +25,10 @@ int DataBaseInterface(DataBasePointer _this)
 
 		status = CreateFromFile(&_this->baseHead, fileName);
 	} while (status > EXIT_SUCCESS);
+	if (status != EXIT_SUCCESS)
+	{
+		return EXIT_FAILURE;
+	}
 
 	strcpy(_this->sheetPath, fileName);
 
@@ -42,8 +48,10 @@ int DataBaseInterface(DataBasePointer _this)
 			PrintAllDataBase(_this);
 			break;
 		case 2:
+			AddNewBill(_this);
 			break;
-		case 3:// TODO
+		case 3:
+			FilterMenu(_this);
 			break;
 		case 0:
 			break;
@@ -57,6 +65,34 @@ int DataBaseInterface(DataBasePointer _this)
 	return 0; // !
 }
 
+static int FilterMenu(DataBasePointer _this)
+{
+	int choose = 0;
+
+	do
+	{
+		PrintFilterMenu();
+		printf("Choose: ");
+		scanf("%d", &choose);
+
+		switch (choose)
+		{
+		case 1:
+			CalculateEarningsInRange(_this);
+			break;
+		case 0:
+			break;
+		default:
+			printf("Wrong option\n");
+			break;
+		}
+
+	} while (choose != 0);
+
+	printf("\n");
+	return 0;
+}
+
 static int PrintMenu()
 {
 	printf("Choose one of operations:\n");
@@ -66,4 +102,13 @@ static int PrintMenu()
 	printf("0. EXIT\n");
 
 	return 0; // !
+}
+
+static int PrintFilterMenu()
+{
+	printf("Choose one of filters:\n");
+	printf("1. Calculate earings \n");
+	printf("0. EXIT\n");
+
+	return 0;
 }

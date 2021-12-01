@@ -11,4 +11,9 @@ typedef struct _filter
 }Filter;
 typedef struct _filter* FilterPointer;
 
+int FilterConstructorClear(FilterPointer _this);
+int FilterDeconstructor(FilterPointer _this);
+
+int CreateFilter(FilterPointer _this);
+
 int CaluclateTotalEarningsFromDateRange(BillPosition head, Date fromDate, Date toDate, float* sumPrice);
